@@ -6,13 +6,11 @@ import Link from "next/link";
 const label = { inputProps: { "aria-label": "Switch demo" } };
 
 export default function IndexPage() {
-  // `session` will match the returned value of `callbacks.session()` from `NextAuth()`
-  const { data: session } = useSession();
-
-  console.log({ session });
-
   return (
     <div className={styles.container}>
+      <Link href={"/auth/signup"} className="p-8">
+        <a className="p-8 font-mono">a</a>
+      </Link>
       <Link href={"/ssr"}>ssr</Link>
       <Link href={"/csr"}>csr</Link>
       <Link href={"/api/auth/signin"}>signin</Link>
