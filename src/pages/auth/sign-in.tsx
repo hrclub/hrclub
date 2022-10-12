@@ -16,8 +16,22 @@ import {
   Link,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { useTranslation } from "next-i18next";
+import { GetStaticPropsContext } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+
+export async function getStaticProps(ctx: GetStaticPropsContext) {
+  const translations = await serverSideTranslations(ctx.locale || "");
+
+  return {
+    props: {
+      ...translations,
+    },
+  };
+}
 
 export default function Signin() {
+  const { t } = useTranslation();
   const { handleSubmit, control } = useForm<ISignIn>({
     resolver: zodResolver(signInSchema),
   });
@@ -32,8 +46,8 @@ export default function Signin() {
   return (
     <Container component="main" maxWidth="xs">
       <Head>
-        <title>Sign in</title>
-        <meta name="description" content="Sign in page" />
+        <title>{t("hello")}</title>
+        <meta name="description" content={t("Sign in page")} />
       </Head>
 
       <Box
@@ -47,7 +61,7 @@ export default function Signin() {
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography>Sign in</Typography>
+        <Typography>{t("Sign in")}</Typography>
         <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 1 }}>
           <Grid container sx={{ mt: 1 }}>
             <Grid item xs={12}>
@@ -60,7 +74,7 @@ export default function Signin() {
                     {...field}
                     fullWidth
                     autoFocus
-                    label="Email address"
+                    label={t("Email")}
                     error={error !== undefined}
                     helperText={error ? error.message : ""}
                   />
@@ -77,7 +91,7 @@ export default function Signin() {
                     {...field}
                     type="password"
                     fullWidth
-                    label="Password"
+                    label={t("Password")}
                     error={error !== undefined}
                     helperText={error ? error.message : ""}
                   />
@@ -86,12 +100,12 @@ export default function Signin() {
             </Grid>
             <Grid item xs={12}>
               <Button fullWidth variant="contained" type="submit">
-                Sign in
+                {t("Sign in")}
               </Button>
             </Grid>
             <Grid item xs>
               <NextLink href="/auth/sign-up" passHref>
-                <Link>Go to sign up</Link>
+                <Link>{t("Go to sign up")}</Link>
               </NextLink>
             </Grid>
           </Grid>

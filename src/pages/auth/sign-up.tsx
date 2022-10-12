@@ -18,8 +18,23 @@ import {
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useSnackbar } from "notistack";
+import { GetStaticPropsContext } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+import { TRPCClientError } from "@trpc/client";
+
+export async function getStaticProps(ctx: GetStaticPropsContext) {
+  const translations = await serverSideTranslations(ctx.locale || "");
+
+  return {
+    props: {
+      ...translations,
+    },
+  };
+}
 
 export default function SignUp() {
+  const { t } = useTranslation();
   const router = useRouter();
   const { handleSubmit, control } = useForm<ISignUp>({
     resolver: zodResolver(signUpSchema),
@@ -30,12 +45,20 @@ export default function SignUp() {
 
   const onSubmit = useCallback(
     async function (data: ISignUp) {
-      const result = await mutateAsync(data);
+      try {
+        const result = await mutateAsync(data);
 
-      if (result.status === 201) {
-        router.push("/auth/sign-in");
+        if (result.status === 201) {
+          router.push("/auth/sign-in");
 
-        enqueueSnackbar(result.message);
+          enqueueSnackbar(result.message, { variant: "success" });
+        }
+      } catch (err) {
+        if (err instanceof TRPCClientError) {
+          enqueueSnackbar(t(err.message, { ns: "validation" }), {
+            variant: "error",
+          });
+        }
       }
     },
     [mutateAsync, router]
@@ -44,8 +67,8 @@ export default function SignUp() {
   return (
     <Container component="main" maxWidth="xs">
       <Head>
-        <title>Sign up</title>
-        <meta name="description" content="Sign up page" />
+        <title>{t("Sign up")}</title>
+        <meta name="description" content={t("Sign up page")} />
       </Head>
 
       <Box
@@ -59,7 +82,7 @@ export default function SignUp() {
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography>Sign up</Typography>
+        <Typography>{t("Sign up")}</Typography>
         <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 1 }}>
           <Grid container sx={{ mt: 1 }}>
             <Grid item xs={6}>
@@ -72,7 +95,7 @@ export default function SignUp() {
                     {...field}
                     fullWidth
                     autoFocus
-                    label="Lastname"
+                    label={t("Last name")}
                     error={error !== undefined}
                     helperText={error ? error.message : ""}
                   />
@@ -88,7 +111,7 @@ export default function SignUp() {
                   <TextField
                     {...field}
                     fullWidth
-                    label="Firstname"
+                    label={t("First name")}
                     error={error !== undefined}
                     helperText={error ? error.message : ""}
                   />
@@ -104,7 +127,7 @@ export default function SignUp() {
                   <TextField
                     {...field}
                     fullWidth
-                    label="Username"
+                    label={t("Username")}
                     error={error !== undefined}
                     helperText={error ? error.message : ""}
                   />
@@ -120,7 +143,7 @@ export default function SignUp() {
                   <TextField
                     {...field}
                     fullWidth
-                    label="Email"
+                    label={t("Email")}
                     error={error !== undefined}
                     helperText={error ? error.message : ""}
                   />
@@ -137,7 +160,7 @@ export default function SignUp() {
                     {...field}
                     type="password"
                     fullWidth
-                    label="Password"
+                    label={t("Password")}
                     error={error !== undefined}
                     helperText={error ? error.message : ""}
                   />
@@ -154,7 +177,7 @@ export default function SignUp() {
                     {...field}
                     type="password"
                     fullWidth
-                    label="Verify password"
+                    label={t("Verify password")}
                     error={error !== undefined}
                     helperText={error ? error.message : ""}
                   />
@@ -163,12 +186,12 @@ export default function SignUp() {
             </Grid>
             <Grid item xs={12}>
               <Button fullWidth variant="contained" type="submit">
-                Sign up
+                {t("Sign up")}
               </Button>
             </Grid>
             <Grid item xs>
               <NextLink href="/auth/sign-in" passHref>
-                <Link>Go to sign in</Link>
+                <Link>{t("Go to sign in")}</Link>
               </NextLink>
             </Grid>
           </Grid>

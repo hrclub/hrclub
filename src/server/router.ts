@@ -9,24 +9,36 @@ export const serverRouter = router<Context>().mutation("sign-up", {
     const { lastname, firstname, username, email, password, verifyPassword } =
       input;
 
-    const exists = await ctx.prisma.user.findFirst({
+    const emailExists = await ctx.prisma.user.findUnique({
       where: {
         email,
+      },
+    });
+
+    if (emailExists) {
+      throw new TRPCError({
+        code: "CONFLICT",
+        message: "User already exists",
+      });
+    }
+
+    const usernameExists = await ctx.prisma.user.findUnique({
+      where: {
         username,
       },
     });
+
+    if (usernameExists) {
+      throw new TRPCError({
+        code: "CONFLICT",
+        message: "User already exists",
+      });
+    }
 
     if (password !== verifyPassword) {
       throw new TRPCError({
         code: "CONFLICT",
         message: "Password did not match",
-      });
-    }
-
-    if (exists) {
-      throw new TRPCError({
-        code: "CONFLICT",
-        message: "User already exists",
       });
     }
 

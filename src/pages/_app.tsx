@@ -10,6 +10,17 @@ import { Session } from "next-auth";
 import { withTRPC } from "@trpc/next";
 import { ServerRouter } from "server/router";
 import { SnackbarProvider } from "notistack";
+import { appWithTranslation, i18n } from "next-i18next";
+
+if (process.env.NODE_ENV !== "production") {
+  if (typeof window !== "undefined") {
+    const { applyClientHMR } = require("i18next-hmr/client");
+    applyClientHMR(() => i18n);
+  } else {
+    const { applyServerHMR } = require("i18next-hmr/server");
+    applyServerHMR(() => i18n);
+  }
+}
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -20,11 +31,9 @@ interface MyAppProps extends AppProps {
   };
 }
 
-function MyApp({
-  Component,
-  pageProps,
-  emotionCache = clientSideEmotionCache,
-}: MyAppProps) {
+function MyApp(props: MyAppProps) {
+  const { Component, pageProps, emotionCache = clientSideEmotionCache } = props;
+
   return (
     <CacheProvider value={emotionCache}>
       <ThemeProvider theme={theme}>
@@ -56,4 +65,5 @@ export default withTRPC<ServerRouter>({
     };
   },
   ssr: true,
-})(MyApp);
+  //@ts-ignore
+})(appWithTranslation(MyApp));

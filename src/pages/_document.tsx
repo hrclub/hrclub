@@ -8,6 +8,7 @@ import Document, {
 } from "next/document";
 import createEmotionServer from "@emotion/server/create-instance";
 import { createEmotionCache } from "lib/emotion";
+import i18nextConfig from "../../next-i18next.config";
 
 interface MyDocumentProps extends DocumentProps {
   emotionStyleTags: JSX.Element[];
@@ -15,8 +16,11 @@ interface MyDocumentProps extends DocumentProps {
 
 export default class MyDocument extends Document<MyDocumentProps> {
   render() {
+    const currentLocale =
+      this.props.__NEXT_DATA__.locale || i18nextConfig.i18n.defaultLocale;
+
     return (
-      <Html lang="en">
+      <Html lang={currentLocale}>
         <Head>{this.props.emotionStyleTags}</Head>
         <body>
           <Main />

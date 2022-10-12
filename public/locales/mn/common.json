@@ -1,0 +1,17 @@
+{
+  "hello": "Сайн уу",
+  "Sign in": "Нэвтрэх",
+  "Sign in page": "Нэвтрэх хуудас",
+  "Sign up": "Бүртгүүлэх",
+  "Sign up page": "Бүртгүүлэх хуудас",
+  "Last name": "Овог",
+  "First name": "Нэр",
+  "Username": "Хэрэглэгчийн нэр",
+  "Email": "Цахим шуудан",
+  "Password": "Нууц үг",
+  "Verify password": "Бататгах нууц үг",
+  "Go to sign in": "Нэвтрэх хуудасруу очих",
+  "Go to sign up": "Бүртгүүлэх хуудасруу очих",
+
+  "Account created successfully": "Хэрэглэгч амжилттай бүртгэгдлээ"
+}
