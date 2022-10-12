@@ -3,6 +3,9 @@ module.exports = {
   i18n: {
     defaultLocale: "mn",
     locales: ["en", "mn"],
-    // reloadOnPrerender: process.env.NODE_ENV === "development",
   },
+  interpolation: {
+    skipOnVariables: false,
+  },
+  reloadOnPrerender: process.env.NODE_ENV === "development",
 };

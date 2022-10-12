@@ -22,9 +22,11 @@ import { GetStaticPropsContext } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { TRPCClientError } from "@trpc/client";
+import { z } from "zod";
+import { makeZodI18nMap } from "zod-i18n-map";
 
 export async function getStaticProps(ctx: GetStaticPropsContext) {
-  const translations = await serverSideTranslations(ctx.locale || "");
+  const translations = await serverSideTranslations(ctx.locale!);
 
   return {
     props: {
@@ -35,6 +37,7 @@ export async function getStaticProps(ctx: GetStaticPropsContext) {
 
 export default function SignUp() {
   const { t } = useTranslation();
+  z.setErrorMap(makeZodI18nMap(t));
   const router = useRouter();
   const { handleSubmit, control } = useForm<ISignUp>({
     resolver: zodResolver(signUpSchema),
@@ -51,7 +54,7 @@ export default function SignUp() {
         if (result.status === 201) {
           router.push("/auth/sign-in");
 
-          enqueueSnackbar(result.message, { variant: "success" });
+          enqueueSnackbar(t(result.message), { variant: "success" });
         }
       } catch (err) {
         if (err instanceof TRPCClientError) {
@@ -96,8 +99,8 @@ export default function SignUp() {
                     fullWidth
                     autoFocus
                     label={t("Last name")}
-                    error={error !== undefined}
-                    helperText={error ? error.message : ""}
+                    error={!!error}
+                    helperText={error && error.message}
                   />
                 )}
               />

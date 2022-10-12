@@ -19,9 +19,11 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useTranslation } from "next-i18next";
 import { GetStaticPropsContext } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { z } from "zod";
+import { makeZodI18nMap } from "zod-i18n-map";
 
 export async function getStaticProps(ctx: GetStaticPropsContext) {
-  const translations = await serverSideTranslations(ctx.locale || "");
+  const translations = await serverSideTranslations(ctx.locale!);
 
   return {
     props: {
@@ -32,6 +34,7 @@ export async function getStaticProps(ctx: GetStaticPropsContext) {
 
 export default function Signin() {
   const { t } = useTranslation();
+  z.setErrorMap(makeZodI18nMap(t));
   const { handleSubmit, control } = useForm<ISignIn>({
     resolver: zodResolver(signInSchema),
   });

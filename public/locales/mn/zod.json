@@ -1,0 +1,99 @@
+{
+  "errors": {
+    "invalid_type": "Expected {{expected}}, received {{received}}",
+    "invalid_type_received_undefined": "Шаардлагатай",
+    "invalid_literal": "Буруу literal value, expected {{expected}}",
+    "unrecognized_keys": "Unrecognized key(s) in object: {{- keys}}",
+    "invalid_union": "Буруу input",
+    "invalid_union_discriminator": "Буруу discriminator value. Expected {{- options}}",
+    "invalid_enum_value": "Буруу enum value. Expected {{- options}}, received {{received}}",
+    "invalid_arguments": "Буруу function arguments",
+    "invalid_return_type": "Буруу function return type",
+    "invalid_date": "Буруу огноо өгөгдсөн байна",
+    "custom": "Буруу input",
+    "invalid_intersection_types": "Intersection results could not be merged",
+    "not_multiple_of": "Number must be a multiple of {{multipleOf}}",
+    "invalid_string": {
+      "email": "Буруу {{validation}}",
+      "url": "Буруу {{validation}}",
+      "uuid": "Буруу {{validation}}",
+      "cuid": "Буруу {{validation}}",
+      "regex": "Буруу",
+      "startsWith": "Буруу input: must start with {{startsWith}}",
+      "endsWith": "Буруу input: must end with {{endsWith}}"
+    },
+    "too_small": {
+      "array": {
+        "inclusive": "Массив хамгийн багадаа {{minimum}} элемэнт агуулсан байх ёстой",
+        "not_inclusive": "Array must contain more than {{minimum}} element(s)"
+      },
+      "string": {
+        "inclusive": "Текст хамгийн багадаа {{minimum}} тэмдэгт агуулсан байх ёстой",
+        "not_inclusive": "String must contain over {{minimum}} character(s)"
+      },
+      "number": {
+        "inclusive": "Number must be greater than or equal to {{minimum}}",
+        "not_inclusive": "Number must be greater than {{minimum}}"
+      },
+      "set": {
+        "inclusive": "Буруу input",
+        "not_inclusive": "Буруу input"
+      },
+      "date": {
+        "inclusive": "Date must be greater than or equal to {{- minimum, datetime}}",
+        "not_inclusive": "Date must be greater than {{- minimum, datetime}}"
+      }
+    },
+    "too_big": {
+      "array": {
+        "inclusive": "Массив хамгийн ихдээ {{maximum}} элемэнт агуулсан байх ёстой",
+        "not_inclusive": "Array must contain less than {{maximum}} element(s)"
+      },
+      "string": {
+        "inclusive": "Текст хамгийн ихдээ {{maximum}} тэмдэгт агуулсан байх ёстой",
+        "not_inclusive": "String must contain under {{maximum}} character(s)"
+      },
+      "number": {
+        "inclusive": "Number must be less than or equal to {{maximum}}",
+        "not_inclusive": "Number must be less than {{maximum}}"
+      },
+      "set": {
+        "inclusive": "Буруу input",
+        "not_inclusive": "Буруу input"
+      },
+      "date": {
+        "inclusive": "Date must be smaller than or equal to {{- maximum, datetime}}",
+        "not_inclusive": "Date must be smaller than {{- maximum, datetime}}"
+      }
+    }
+  },
+  "validations": {
+    "email": "цахим шуудан",
+    "url": "URL хаяг",
+    "uuid": "uuid",
+    "cuid": "cuid",
+    "regex": "regex"
+  },
+  "types": {
+    "function": "function",
+    "number": "number",
+    "string": "string",
+    "nan": "nan",
+    "integer": "integer",
+    "float": "float",
+    "boolean": "boolean",
+    "date": "date",
+    "bigint": "bigint",
+    "undefined": "undefined",
+    "symbol": "symbol",
+    "null": "null",
+    "array": "array",
+    "object": "object",
+    "unknown": "unknown",
+    "promise": "promise",
+    "void": "void",
+    "never": "never",
+    "map": "map",
+    "set": "set"
+  }
+}
