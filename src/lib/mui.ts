@@ -18,16 +18,39 @@ export const theme = createTheme({
     MuiButton: {
       defaultProps: {
         size: "small",
+        color: "inherit",
       },
     },
     MuiLink: {
       defaultProps: {
         variant: "body2",
+        underline: "none",
+        color: "initial",
       },
     },
     MuiGrid: {
       defaultProps: {
         spacing: 2,
+      },
+    },
+    MuiList: {
+      defaultProps: {
+        dense: true,
+      },
+    },
+    MuiListItem: {
+      defaultProps: {
+        disablePadding: true,
+      },
+    },
+    MuiSvgIcon: {
+      defaultProps: {
+        fontSize: "small",
+      },
+    },
+    MuiAppBar: {
+      defaultProps: {
+        color: "default",
       },
     },
   },

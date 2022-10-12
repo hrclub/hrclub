@@ -4,6 +4,8 @@
   "Sign in page": "Нэвтрэх хуудас",
   "Sign up": "Бүртгүүлэх",
   "Sign up page": "Бүртгүүлэх хуудас",
+  "Sign out": "Бүртгэлээс гарах",
+  "Profile": "Профайл",
   "Last name": "Овог",
   "First name": "Нэр",
   "Username": "Хэрэглэгчийн нэр",
@@ -12,10 +14,17 @@
   "Verify password": "Бататгах нууц үг",
   "Go to sign in": "Нэвтрэх хуудасруу очих",
   "Go to sign up": "Бүртгүүлэх хуудасруу очих",
+  "Homepage": "Нүүр хуудас",
   "Dashboard": "Хянах самбар",
   "Dashboard page": "Хянах самбарын хуудас",
   "Permission": "Зөвшөөрөл",
+  "Permissions": "Зөвшөөрлүүд",
   "Create permission": "Зөвшөөрөл үүсгэх",
 
-  "Account created successfully": "Хэрэглэгч амжилттай бүртгэгдлээ"
+  "Account created successfully": "Хэрэглэгч амжилттай бүртгэгдлээ",
+
+  "/": "$t(Homepage)",
+  "/dashboard": "$t(Dashboard)",
+  "/dashboard/permissions": "$t(Permissions)",
+  "/dashboard/permissions/create": "$t(Create permission)"
 }

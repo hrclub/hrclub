@@ -1,4 +1,5 @@
 import Container from "@mui/material/Container";
+import DashboardHeader from "components/dashboard-header";
 import DashboardLayout from "components/dashboard-layout";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -25,7 +26,7 @@ export default function CreatePermission() {
           <title>{t("Create permission")}</title>
           <meta name="description" content={t("Create permission page")} />
         </Head>
-        <p>{t("Create permission")}</p>
+        <DashboardHeader />
       </Container>
     </DashboardLayout>
   );

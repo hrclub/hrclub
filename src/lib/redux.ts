@@ -1,11 +1,13 @@
 import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
 import { createWrapper } from "next-redux-wrapper";
 import dashboardLayoutSlice from "slices/dashboard-layout";
+import profileMenuSlice from "slices/profile-menu";
 
 const makeStore = () =>
   configureStore({
     reducer: {
       [dashboardLayoutSlice.name]: dashboardLayoutSlice.reducer,
+      [profileMenuSlice.name]: profileMenuSlice.reducer,
     },
     devTools: process.env.NODE_ENV === "development",
   });
