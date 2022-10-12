@@ -7,7 +7,7 @@ import Document, {
   DocumentProps,
 } from "next/document";
 import createEmotionServer from "@emotion/server/create-instance";
-import createEmotionCache from "utils/create_emotion_cache";
+import { createEmotionCache } from "lib/emotion";
 
 interface MyDocumentProps extends DocumentProps {
   emotionStyleTags: JSX.Element[];

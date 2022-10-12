@@ -1,26 +1,26 @@
-import { useSession } from "next-auth/react";
-import styles from "styles/Home.module.css";
-import Switch from "@mui/material/Switch";
+import { Button } from "@mui/material";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 
-const label = { inputProps: { "aria-label": "Switch demo" } };
-
 export default function IndexPage() {
-  return (
-    <div className={styles.container}>
-      <Link href={"/auth/signup"} className="p-8">
-        <a className="p-8 font-mono">a</a>
-      </Link>
-      <Link href={"/ssr"}>ssr</Link>
-      <Link href={"/csr"}>csr</Link>
-      <Link href={"/api/auth/signin"}>signin</Link>
+  const { data, status } = useSession();
 
-      <div>
-        <span>With default Theme:</span>
-      </div>
-      <Switch {...label} defaultChecked />
-      <Switch {...label} />
-      <Switch {...label} disabled defaultChecked />
+  if (status === "loading") return <div>Loading...</div>;
+
+  if (status === "authenticated") {
+    return (
+      <Button onClick={() => signOut({ callbackUrl: "/auth/sign-in" })}>
+        Sign out
+      </Button>
+    );
+  }
+
+  console.log({ data });
+
+  return (
+    <div>
+      <Link href={"/auth/sign-in"}>signin</Link>
+      <Link href={"/auth/sign-up"}>signup</Link>
     </div>
   );
 }
