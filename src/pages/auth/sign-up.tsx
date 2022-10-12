@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { Controller, useForm } from "react-hook-form";
-import { ISignUp, signUpSchema } from "validations/auth";
+import { SignUpSchema, signUpSchema } from "validations/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { trpc } from "lib/trpc";
 import { useCallback } from "react";
@@ -39,7 +39,7 @@ export default function SignUp() {
   const { t } = useTranslation();
   z.setErrorMap(makeZodI18nMap(t));
   const router = useRouter();
-  const { handleSubmit, control } = useForm<ISignUp>({
+  const { handleSubmit, control } = useForm<SignUpSchema>({
     resolver: zodResolver(signUpSchema),
   });
   const { enqueueSnackbar } = useSnackbar();
@@ -47,7 +47,7 @@ export default function SignUp() {
   const { mutateAsync } = trpc.useMutation(["sign-up"]);
 
   const onSubmit = useCallback(
-    async function (data: ISignUp) {
+    async function (data: SignUpSchema) {
       try {
         const result = await mutateAsync(data);
 

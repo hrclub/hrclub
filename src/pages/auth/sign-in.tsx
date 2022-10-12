@@ -4,7 +4,7 @@ import { useCallback } from "react";
 import { signIn } from "next-auth/react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signInSchema, ISignIn } from "validations/auth";
+import { signInSchema, SignInSchema } from "validations/auth";
 import {
   Avatar,
   Box,
@@ -35,11 +35,11 @@ export async function getStaticProps(ctx: GetStaticPropsContext) {
 export default function Signin() {
   const { t } = useTranslation();
   z.setErrorMap(makeZodI18nMap(t));
-  const { handleSubmit, control } = useForm<ISignIn>({
+  const { handleSubmit, control } = useForm<SignInSchema>({
     resolver: zodResolver(signInSchema),
   });
 
-  const onSubmit = useCallback(async function (data: ISignIn) {
+  const onSubmit = useCallback(async function (data: SignInSchema) {
     await signIn("credentials", {
       ...data,
       callbackUrl: "/dashboard",
@@ -49,7 +49,7 @@ export default function Signin() {
   return (
     <Container component="main" maxWidth="xs">
       <Head>
-        <title>{t("hello")}</title>
+        <title>{t("Sign in")}</title>
         <meta name="description" content={t("Sign in page")} />
       </Head>
 

@@ -12,6 +12,10 @@
   "Verify password": "Бататгах нууц үг",
   "Go to sign in": "Нэвтрэх хуудасруу очих",
   "Go to sign up": "Бүртгүүлэх хуудасруу очих",
+  "Dashboard": "Хянах самбар",
+  "Dashboard page": "Хянах самбарын хуудас",
+  "Permission": "Зөвшөөрөл",
+  "Create permission": "Зөвшөөрөл үүсгэх",
 
   "Account created successfully": "Хэрэглэгч амжилттай бүртгэгдлээ"
 }

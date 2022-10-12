@@ -46,7 +46,7 @@ export const serverRouter = router<Context>().mutation("sign-up", {
 
     const result = await ctx.prisma.user.create({
       data: {
-        lastname,
+        lastname: lastname || null,
         firstname,
         username,
         email,

@@ -12,5 +12,5 @@ export const signUpSchema = signInSchema.extend({
   verifyPassword: z.string().trim().min(8),
 });
 
-export type ISignIn = z.infer<typeof signInSchema>;
-export type ISignUp = z.infer<typeof signUpSchema>;
+export type SignInSchema = z.infer<typeof signInSchema>;
+export type SignUpSchema = z.infer<typeof signUpSchema>;
