@@ -1,31 +1,30 @@
 import Drawer from "@mui/material/Drawer";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectDashboardLayoutOpen,
+  selectDashboardLayoutWidth,
+  toggleDashboardLayoutOpen,
+} from "slices/dashboard-layout";
 import DashboardDrawerMenu from "./dashboard-drawer-menu";
 
-interface DashboardDrawerTemporaryProps {
-  open: boolean;
-  toggleDrawer: Function;
-}
-
-const drawerWidth = 240;
-
-export default function DashboardDrawerTemporary(
-  props: DashboardDrawerTemporaryProps
-) {
-  const { open, toggleDrawer } = props;
+export default function DashboardDrawerTemporary() {
+  const dispatch = useDispatch();
+  const open = useSelector(selectDashboardLayoutOpen());
+  const width = useSelector(selectDashboardLayoutWidth());
 
   return (
     <Drawer
       variant="temporary"
       open={open}
-      onClose={() => toggleDrawer()}
+      onClose={() => dispatch(toggleDashboardLayoutOpen())}
       ModalProps={{
-        keepMounted: true, // Better open performance on mobile.
+        keepMounted: true,
       }}
       sx={{
         display: { xs: "block", sm: "none" },
         "& .MuiDrawer-paper": {
           boxSizing: "border-box",
-          width: drawerWidth,
+          width,
         },
       }}
     >

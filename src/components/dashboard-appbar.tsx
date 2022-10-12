@@ -3,22 +3,22 @@ import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectDashboardLayoutWidth,
+  toggleDashboardLayoutOpen,
+} from "slices/dashboard-layout";
 
-const drawerWidth = 240;
-
-interface DashboardAppbarProps {
-  toggleDrawer: Function;
-}
-
-export default function DashboardAppbar(props: DashboardAppbarProps) {
-  const { toggleDrawer } = props;
+export default function DashboardAppbar() {
+  const dispatch = useDispatch();
+  const width = useSelector(selectDashboardLayoutWidth());
 
   return (
     <AppBar
       position="fixed"
       sx={{
-        width: { sm: `calc(100% - ${drawerWidth}px)` },
-        ml: { sm: `${drawerWidth}px` },
+        width: { sm: `calc(100% - ${width}px)` },
+        ml: { sm: `${width}px` },
       }}
     >
       <Toolbar>
@@ -26,7 +26,7 @@ export default function DashboardAppbar(props: DashboardAppbarProps) {
           color="inherit"
           aria-label="open drawer"
           edge="start"
-          onClick={() => toggleDrawer()}
+          onClick={() => dispatch(toggleDashboardLayoutOpen())}
           sx={{ mr: 2, display: { sm: "none" } }}
         >
           <MenuIcon />

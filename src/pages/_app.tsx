@@ -11,6 +11,8 @@ import { withTRPC } from "@trpc/next";
 import { ServerRouter } from "server/router";
 import { SnackbarProvider } from "notistack";
 import { appWithTranslation, i18n } from "next-i18next";
+import { wrapper } from "lib/redux";
+import { Provider } from "react-redux";
 
 if (process.env.NODE_ENV !== "production") {
   if (typeof window !== "undefined") {
@@ -31,20 +33,23 @@ interface MyAppProps extends AppProps {
   };
 }
 
-function MyApp(props: MyAppProps) {
-  const { Component, pageProps, emotionCache = clientSideEmotionCache } = props;
+function MyApp({ Component, ...rest }: MyAppProps) {
+  const { props, store } = wrapper.useWrappedStore(rest);
+  const { pageProps, emotionCache = clientSideEmotionCache } = props;
 
   return (
-    <CacheProvider value={emotionCache}>
-      <ThemeProvider theme={theme}>
-        <SessionProvider session={pageProps.session}>
-          <SnackbarProvider>
-            <CssBaseline />
-            <Component {...pageProps} />
-          </SnackbarProvider>
-        </SessionProvider>
-      </ThemeProvider>
-    </CacheProvider>
+    <Provider store={store}>
+      <CacheProvider value={emotionCache}>
+        <ThemeProvider theme={theme}>
+          <SessionProvider session={pageProps.session}>
+            <SnackbarProvider>
+              <CssBaseline />
+              <Component {...pageProps} />
+            </SnackbarProvider>
+          </SessionProvider>
+        </ThemeProvider>
+      </CacheProvider>
+    </Provider>
   );
 }
 

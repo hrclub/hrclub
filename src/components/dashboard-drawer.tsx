@@ -1,27 +1,19 @@
 import Box from "@mui/material/Box";
+import { useSelector } from "react-redux";
+import { selectDashboardLayoutWidth } from "slices/dashboard-layout";
 import DashboardDrawerPermanent from "./dashboard-drawer-permament";
 import DashboardDrawerTemporary from "./dashboard-drawer-temporary";
 
-interface DashboardDrawerProps {
-  open: boolean;
-  toggleDrawer: Function;
-}
-
-const drawerWidth = 240;
-
-export default function DashboardDrawer(props: DashboardDrawerProps) {
-  const { open, toggleDrawer } = props;
+export default function DashboardDrawer() {
+  const width = useSelector(selectDashboardLayoutWidth());
 
   return (
     <Box
       component="nav"
-      sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+      sx={{ width: { sm: width }, flexShrink: { sm: 0 } }}
       aria-label="mailbox folders"
     >
-      <DashboardDrawerTemporary
-        open={open}
-        toggleDrawer={() => toggleDrawer()}
-      />
+      <DashboardDrawerTemporary />
       <DashboardDrawerPermanent />
     </Box>
   );

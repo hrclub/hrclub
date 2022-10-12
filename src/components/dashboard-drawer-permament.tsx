@@ -1,9 +1,11 @@
 import Drawer from "@mui/material/Drawer";
+import { useSelector } from "react-redux";
+import { selectDashboardLayoutWidth } from "slices/dashboard-layout";
 import DashboardDrawerMenu from "./dashboard-drawer-menu";
 
-const drawerWidth = 240;
-
 export default function DashboardDrawerPermanent() {
+  const width = useSelector(selectDashboardLayoutWidth());
+
   return (
     <Drawer
       variant="permanent"
@@ -11,7 +13,7 @@ export default function DashboardDrawerPermanent() {
         display: { xs: "none", sm: "block" },
         "& .MuiDrawer-paper": {
           boxSizing: "border-box",
-          width: drawerWidth,
+          width,
         },
       }}
       open

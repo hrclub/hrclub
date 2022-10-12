@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-
-const drawerWidth = 240;
+import { useSelector } from "react-redux";
+import { selectDashboardLayoutWidth } from "slices/dashboard-layout";
 
 interface DashboardMainProps {
   children: React.ReactNode;
@@ -9,6 +9,7 @@ interface DashboardMainProps {
 
 export default function DashboardMain(props: DashboardMainProps) {
   const { children } = props;
+  const width = useSelector(selectDashboardLayoutWidth());
 
   return (
     <Box
@@ -16,7 +17,7 @@ export default function DashboardMain(props: DashboardMainProps) {
       sx={{
         flexGrow: 1,
         p: 3,
-        width: { sm: `calc(100% - ${drawerWidth}px)` },
+        width: { sm: `calc(100% - ${width}px)` },
       }}
     >
       <Toolbar />
