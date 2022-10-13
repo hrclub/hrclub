@@ -1,7 +1,9 @@
 import { createTheme } from "@mui/material/styles";
 
 export const theme = createTheme({
-  palette: {},
+  palette: {
+    mode: "light",
+  },
   components: {
     MuiTextField: {
       defaultProps: {
@@ -25,7 +27,7 @@ export const theme = createTheme({
       defaultProps: {
         variant: "body2",
         underline: "none",
-        color: "initial",
+        color: "inherit",
       },
     },
     MuiGrid: {
@@ -51,6 +53,26 @@ export const theme = createTheme({
     MuiAppBar: {
       defaultProps: {
         color: "default",
+      },
+    },
+    MuiTable: {
+      defaultProps: {
+        size: "small",
+      },
+    },
+    MuiTableRow: {
+      defaultProps: {
+        hover: true,
+      },
+    },
+    MuiTableCell: {
+      defaultProps: {
+        size: "small",
+      },
+      styleOverrides: {
+        head: {
+          fontSize: "13px",
+        },
       },
     },
   },

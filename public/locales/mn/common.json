@@ -1,4 +1,6 @@
 {
+  "#": "#",
+
   "hello": "Сайн уу",
   "Sign in": "Нэвтрэх",
   "Sign in page": "Нэвтрэх хуудас",
@@ -20,8 +22,15 @@
   "Permission": "Зөвшөөрөл",
   "Permissions": "Зөвшөөрлүүд",
   "Create permission": "Зөвшөөрөл үүсгэх",
+  "Permission name": "Зөвшөөрлийн нэр",
+  "Permission description": "Зөвшөөрлийн тайлбар",
+  "Permission slug": "Зөвшөөрлийн slug",
+  "Is active": "Хүчинтэй эсэх",
+  "Created at": "Бүртгэсэн огноо",
+  "Updated at": "Зассан огноо",
 
   "Account created successfully": "Хэрэглэгч амжилттай бүртгэгдлээ",
+  "Permission created successfully": "Зөвшөөрөл амжилттай бүртгэгдлээ",
 
   "/": "$t(Homepage)",
   "/dashboard": "$t(Dashboard)",

@@ -27,7 +27,7 @@ export default function DashboardAppbar() {
         width: { sm: `calc(100% - ${width}px)` },
         ml: { sm: `${width}px` },
         backdropFilter: "blur(6px)",
-        backgroundColor: "rgba(255,255,255,0.8)",
+        backgroundColor: "transparent",
       }}
       color="transparent"
       elevation={0}

@@ -64,8 +64,10 @@ export default function Signin() {
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon />
         </Avatar>
+
         <Typography>{t("Sign in")}</Typography>
-        <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 1 }}>
+
+        <Box component="form" onSubmit={handleSubmit(onSubmit)}>
           <Grid container sx={{ mt: 1 }}>
             <Grid item xs={12}>
               <Controller

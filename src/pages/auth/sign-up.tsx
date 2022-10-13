@@ -3,7 +3,6 @@ import { Controller, useForm } from "react-hook-form";
 import { SignUpSchema, signUpSchema } from "validations/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { trpc } from "lib/trpc";
-import { useCallback } from "react";
 import Head from "next/head";
 import NextLink from "next/link";
 import {
@@ -21,7 +20,6 @@ import { useSnackbar } from "notistack";
 import { GetStaticPropsContext } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
-import { TRPCClientError } from "@trpc/client";
 import { z } from "zod";
 import { makeZodI18nMap } from "zod-i18n-map";
 
@@ -43,29 +41,17 @@ export default function SignUp() {
     resolver: zodResolver(signUpSchema),
   });
   const { enqueueSnackbar } = useSnackbar();
-
-  const { mutateAsync } = trpc.useMutation(["sign-up"]);
-
-  const onSubmit = useCallback(
-    async function (data: SignUpSchema) {
-      try {
-        const result = await mutateAsync(data);
-
-        if (result.status === 201) {
-          router.push("/auth/sign-in");
-
-          enqueueSnackbar(t(result.message), { variant: "success" });
-        }
-      } catch (err) {
-        if (err instanceof TRPCClientError) {
-          enqueueSnackbar(t(err.message, { ns: "validation" }), {
-            variant: "error",
-          });
-        }
-      }
+  const { mutate } = trpc.useMutation(["sign-up"], {
+    onSuccess(data) {
+      router.push("/auth/sign-in");
+      enqueueSnackbar(t(data.message), { variant: "success" });
     },
-    [mutateAsync, router]
-  );
+    onError(error) {
+      enqueueSnackbar(t(error.message, { ns: "validation" }), {
+        variant: "error",
+      });
+    },
+  });
 
   return (
     <Container component="main" maxWidth="xs">
@@ -85,8 +71,10 @@ export default function SignUp() {
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon />
         </Avatar>
+
         <Typography>{t("Sign up")}</Typography>
-        <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 1 }}>
+
+        <Box component="form" onSubmit={handleSubmit((data) => mutate(data))}>
           <Grid container sx={{ mt: 1 }}>
             <Grid item xs={6}>
               <Controller

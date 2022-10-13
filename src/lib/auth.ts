@@ -48,6 +48,7 @@ export const nextAuthOptions: NextAuthOptions = {
       if (user) {
         token.id = user.id;
         token.email = user.email;
+        token.username = user.username;
       }
 
       return token;
@@ -55,6 +56,8 @@ export const nextAuthOptions: NextAuthOptions = {
     session({ session, token }) {
       if (token) {
         session.id = token.id;
+        session.email = token.email;
+        session.username = token.username;
       }
 
       return session;
@@ -62,7 +65,7 @@ export const nextAuthOptions: NextAuthOptions = {
   },
   pages: {
     signIn: "/auth/sign-in",
-    newUser: "auth/sign-up",
+    newUser: "/auth/sign-up",
   },
   secret: "super super secret",
 };
