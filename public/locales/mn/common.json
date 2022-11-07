@@ -35,5 +35,7 @@
   "/": "$t(Homepage)",
   "/dashboard": "$t(Dashboard)",
   "/dashboard/permissions": "$t(Permissions)",
-  "/dashboard/permissions/create": "$t(Create permission)"
+  "/dashboard/permissions/create": "$t(Create permission)",
+
+  "Search": "Хайх"
 }

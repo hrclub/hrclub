@@ -104,9 +104,14 @@ export const serverRouter = router<Context>()
       };
     },
   })
-  .query("get-permissions", {
+  .query("permissions", {
     async resolve({ ctx }) {
       return await ctx.prisma.permission.findMany({
+        where: {
+          name: {
+            contains: "sion",
+          },
+        },
         orderBy: {
           name: "asc",
         },

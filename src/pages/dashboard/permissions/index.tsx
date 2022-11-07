@@ -10,14 +10,19 @@ import { requireAuth } from "utils/require-auth";
 import AddIcon from "@mui/icons-material/Add";
 import { trpc } from "lib/trpc";
 import {
+  IconButton,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
+  TextField,
+  Toolbar,
 } from "@mui/material";
 import { formatDate } from "utils/format-date";
+import { ChangeEvent, useState } from "react";
+import SearchIcon from "@mui/icons-material/Search";
 
 export const getServerSideProps = requireAuth(async (ctx) => {
   const translations = await serverSideTranslations(ctx.locale!);
@@ -32,15 +37,20 @@ export const getServerSideProps = requireAuth(async (ctx) => {
 export default function Permissions() {
   const { t } = useTranslation();
   const router = useRouter();
-  const {
-    isLoading,
-    isError,
-    data: permissions,
-  } = trpc.useQuery(["get-permissions"]);
+  const permissions = trpc.useQuery(["permissions"]);
+  const [search, setSearch] = useState<string>("");
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error...</div>;
-  if (!permissions) return <div>No data...</div>;
+  if (permissions.isLoading) return <div>Loading...</div>;
+  if (permissions.isError) return <div>Error...</div>;
+  if (!permissions.data) return <div>No data...</div>;
+
+  function onSearch(e: ChangeEvent<HTMLInputElement>) {
+    setSearch(e.target.value);
+  }
+
+  function onSearchClick() {
+    permissions.refetch();
+  }
 
   return (
     <DashboardLayout>
@@ -61,6 +71,13 @@ export default function Permissions() {
           }
         />
 
+        <Toolbar>
+          <TextField label={t("Search")} onChange={onSearch} value={search} />
+          <IconButton onClick={onSearchClick}>
+            <SearchIcon />
+          </IconButton>
+        </Toolbar>
+
         <TableContainer>
           <Table>
             <TableHead>
@@ -77,7 +94,7 @@ export default function Permissions() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {permissions.map((permission, i: number) => (
+              {permissions.data.map((permission, i: number) => (
                 <TableRow key={permission.id}>
                   <TableCell padding="checkbox" align="right">
                     {i + 1}

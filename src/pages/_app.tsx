@@ -70,5 +70,5 @@ export default withTRPC<ServerRouter>({
     };
   },
   ssr: true,
-  //@ts-ignore
+  // @ts-ignore
 })(appWithTranslation(MyApp));
